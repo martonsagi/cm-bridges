@@ -1,0 +1,73 @@
+body {
+  background-color: #f5f5f5;
+}
+
+section {
+  margin: 0 20px;
+}
+
+nav .nav-wrapper {
+  padding: 0 15px;
+}
+
+a:focus {
+  outline: none;
+}
+
+.navbar-nav li.loader {
+    margin: 12px 24px 0 6px;
+}
+
+.no-selection {
+  margin: 20px;
+}
+
+.contact-list {
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.panel {
+  margin: 20px;
+}
+
+.button-bar {
+  /*right: 0;
+  left: 0;
+  bottom: 0;*/
+  border-top: 1px solid #ddd;
+  background: white;
+  display: flex;
+  padding-top: 15px;
+}
+
+.flex-spacer {
+  flex-grow: 1;
+}
+
+main {
+  padding: 25px 0;
+}
+
+/*.button-bar > button {
+  float: right;
+  margin: 20px;
+}*/
+
+/*li.list-group-item {
+  list-style: none;
+}
+
+li.list-group-item > a {
+  text-decoration: none;
+}
+
+li.list-group-item.active > a {
+  color: white;
+}
+*/
+
+.collection .collection-item.active a {
+  color: white;
+}
