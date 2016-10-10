@@ -4,3 +4,4 @@ node_modules
 fonts
 styles/materialize.min.css
 scripts/*bundle.js
+scripts/*bundle.js.map
