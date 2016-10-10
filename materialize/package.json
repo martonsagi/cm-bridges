@@ -7,6 +7,11 @@
     "url": "???"
   },
   "license": "MIT",
+  "scripts": {
+    "materialize": "node node_modules/requirejs/bin/r.js -o tools/rbuild.js",
+    "postinstall": "npm run materialize",
+    "postmaterialize": "au prepare-materialize"
+  },
   "dependencies": {
     "aurelia-animator-css": "^1.0.0",
     "aurelia-bootstrapper": "^1.0.0",
