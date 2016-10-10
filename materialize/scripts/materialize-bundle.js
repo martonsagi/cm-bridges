@@ -17451,7 +17451,8 @@ define('text!aurelia-materialize-bridge/carousel/carousel-item.html', ['module']
 define('text!aurelia-materialize-bridge/carousel/carousel.css', ['module'], function(module) { module.exports = "md-carousel {\r\n  display: block;\r\n}\r\n"; });
 define('text!aurelia-materialize-bridge/carousel/carousel.html', ['module'], function(module) { module.exports = "<template class=\"carousel\">\n  <require from=\"./carousel.css\"></require>\n  <slot></slot>\n</template>\n"; });
 define('text!aurelia-materialize-bridge/checkbox/checkbox.html', ['module'], function(module) { module.exports = "<template>\n  <input type=\"checkbox\" id=\"${controlId}\" ref=\"checkbox\" blur.trigger=\"blur()\" />\n  <label for=\"${controlId}\">\n    <slot></slot>\n  </label>\n</template>\n"; });
-define('text!aurelia-materialize-bridge/chip/chip.html', ['module'], function(module) { module.exports = "<template class=\"chip\">\n  <slot></slot>\n  <i show.bind=\"mdClose\" class=\"material-icons\">close</i>\n</template>\n"; });
+define('text!aurelia-materialize-bridge/chip/chip.css', ['module'], function(module) { module.exports = "md-chip i.material-icons {\n  float: right;\n  line-height: 32px;\n  font-size: 16px;\n}\n"; });
+define('text!aurelia-materialize-bridge/chip/chip.html', ['module'], function(module) { module.exports = "<template class=\"chip\">\n  <require from=\"./chip.css\"></require>\n  <slot></slot>\n  <i show.bind=\"mdClose\" class=\"material-icons\">close</i>\n</template>\n"; });
 define('text!aurelia-materialize-bridge/collection/collection-header.css', ['module'], function(module) { module.exports = "md-collection-header {\n  display: block;\n}\n"; });
 define('text!aurelia-materialize-bridge/collection/collection-header.html', ['module'], function(module) { module.exports = "<template class=\"collection-header\">\n  <require from=\"./collection-header.css\"></require>\n  <slot></slot>\n</template>\n"; });
 define('text!aurelia-materialize-bridge/collection/collection-item.css', ['module'], function(module) { module.exports = "md-collection-item {\n  display: block;\n}\n\nmd-collection-item.collection-item:not(.active):hover {\n  background-color: #ddd;\n}\n"; });
@@ -17470,7 +17471,8 @@ define('text!aurelia-materialize-bridge/navbar/navbar.html', ['module'], functio
 define('text!aurelia-materialize-bridge/pagination/pagination.html', ['module'], function(module) { module.exports = "<template>\n  <ul class=\"pagination\">\n    <template if.bind=\"mdShowFirstLast\">\n      <li md-waves click.delegate=\"setFirstPage()\" class=\"${ mdActivePage === 1 ? 'disabled' : '' }\"><a><i class=\"material-icons\">first_page</i></a></li>\n    </template>\n    <template if.bind=\"mdShowPrevNext\">\n      <li md-waves click.delegate=\"setPreviousPage()\" class=\"${ mdActivePage === 1 ? 'disabled' : '' }\"><a><i class=\"material-icons\">chevron_left</i></a></li>\n    </template>\n    <template if.bind=\"mdShowPageLinks\">\n      <li md-waves click.delegate=\"setActivePage(p+1)\" repeat.for=\"p of mdPageLinks\" class=\"${ p+1 === mdActivePage ? 'active' : ''}\">\n        <span if.bind=\"$first && p > 0\">...</span>\n        <a>${p+1}</a>\n        <span if.bind=\"$last && p < pages - 1\">...</span>\n      </li>\n    </template>\n    <template if.bind=\"mdShowPrevNext\">\n      <li md-waves click.delegate=\"setNextPage()\" class=\"${ mdActivePage == pages ? 'disabled' : '' }\"><a><i class=\"material-icons\">chevron_right</i></a></li>\n    </template>\n    <template if.bind=\"mdShowFirstLast\">\n      <li md-waves click.delegate=\"setLastPage()\" class=\"${ mdActivePage == pages ? 'disabled' : '' }\"><a><i class=\"material-icons\">last_page</i></a></li>\n    </template>\n  </ul>\n</template>\n"; });
 define('text!aurelia-materialize-bridge/progress/progress.html', ['module'], function(module) { module.exports = "<template>\n  <template if.bind=\"mdType === 'linear'\">\n    <div class=\"progress\">\n      <div class=\"${ mdValue === null ? 'indeterminate' : 'determinate' }\" css=\"width: ${ mdValue ? mdValue : 0 }%\"></div>\n  </div>\n  </template>\n  <template if.bind=\"mdType === 'circular' && mdColor !== 'flashing'\">\n    <div class=\"preloader-wrapper ${mdSize} active\" ref=\"wrapper\">\n      <div class=\"spinner-layer spinner-${mdColor}-only\">\n        <div class=\"circle-clipper left\">\n          <div class=\"circle\"></div>\n        </div><div class=\"gap-patch\">\n          <div class=\"circle\"></div>\n        </div><div class=\"circle-clipper right\">\n          <div class=\"circle\"></div>\n        </div>\n      </div>\n    </div>\n  </template>\n  <template if.bind=\"mdType === 'circular' && mdColor === 'flashing'\">\n    <div class=\"preloader-wrapper ${mdSize} active\" ref=\"wrapper\">\n      <div class=\"spinner-layer spinner-blue\">\n        <div class=\"circle-clipper left\">\n          <div class=\"circle\"></div>\n        </div><div class=\"gap-patch\">\n          <div class=\"circle\"></div>\n        </div><div class=\"circle-clipper right\">\n          <div class=\"circle\"></div>\n        </div>\n      </div>\n\n      <div class=\"spinner-layer spinner-red\">\n        <div class=\"circle-clipper left\">\n          <div class=\"circle\"></div>\n        </div><div class=\"gap-patch\">\n          <div class=\"circle\"></div>\n        </div><div class=\"circle-clipper right\">\n          <div class=\"circle\"></div>\n        </div>\n      </div>\n\n      <div class=\"spinner-layer spinner-yellow\">\n        <div class=\"circle-clipper left\">\n          <div class=\"circle\"></div>\n        </div><div class=\"gap-patch\">\n          <div class=\"circle\"></div>\n        </div><div class=\"circle-clipper right\">\n          <div class=\"circle\"></div>\n        </div>\n      </div>\n\n      <div class=\"spinner-layer spinner-green\">\n        <div class=\"circle-clipper left\">\n          <div class=\"circle\"></div>\n        </div><div class=\"gap-patch\">\n          <div class=\"circle\"></div>\n        </div><div class=\"circle-clipper right\">\n          <div class=\"circle\"></div>\n        </div>\n      </div>\n    </div>\n  </template>\n</template>\n"; });
 define('text!aurelia-materialize-bridge/radio/radio.html', ['module'], function(module) { module.exports = "<template>\n  <input if.bind=\"!mdModel\" type=\"radio\" name=\"${mdName}\" value.bind=\"mdValue\" id=\"${controlId}\" checked.bind=\"mdChecked\" ref=\"radio\" />\n  <input if.bind=\"!!mdModel\" type=\"radio\" name=\"${mdName}\" model.bind=\"mdModel\" id=\"${controlId}\" checked.bind=\"mdChecked\" ref=\"radio\" />\n  <label for=\"${controlId}\">\n    <slot></slot>\n  </label>\n</template>\n"; });
-define('text!aurelia-materialize-bridge/range/range.html', ['module'], function(module) { module.exports = "<template>\n  <p class=\"range-field\">\n    <input type=\"range\" min.one-time=\"mdMin\" max.one-time=\"mdMax\" step.one-time=\"mdStep\" value.bind=\"mdValue\" ref=\"input\" />\n  </p>\n</template>\n"; });
+define('text!aurelia-materialize-bridge/range/range.css', ['module'], function(module) { module.exports = "md-range input[type=\"range\"]::-ms-tooltip {\r\n  display: none;\r\n}\r\n"; });
+define('text!aurelia-materialize-bridge/range/range.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./range.css\"></require>\n  <p class=\"range-field\">\n    <input type=\"range\" min.one-time=\"mdMin\" max.one-time=\"mdMax\" step.one-time=\"mdStep\" value.bind=\"mdValue\" ref=\"input\" />\n  </p>\n</template>\n"; });
 define('text!aurelia-materialize-bridge/sidenav/sidenav.css', ['module'], function(module) { module.exports = "md-sidenav li[md-waves] {\n  display: block;\n}\nmd-sidenav li a:hover {\n  background-color: transparent;\n  display: inline-block;\n  width: 100%;\n}\n"; });
 define('text!aurelia-materialize-bridge/sidenav/sidenav.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./sidenav.css\"></require>\n  <div id=\"${ controlId }\" class=\"side-nav\" ref=\"sidenav\">\n    <slot></slot>\n  </div>\n</template>\n"; });
 define('text!aurelia-materialize-bridge/slider/slider.css', ['module'], function(module) { module.exports = "md-slider {\n  display: block;\n}\n\nmd-slide {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: inherit;\n    overflow: hidden;\n}\n"; });
@@ -22433,20 +22435,25 @@ define('aurelia-materialize-bridge/select/select',['exports', 'aurelia-templatin
     }
 
     MdSelect.prototype.attached = function attached() {
+      var _this = this;
+
+      this.taskQueue.queueTask(function () {
+        _this.createMaterialSelect(false);
+
+        if (_this.label) {
+          var wrapper = $(_this.element).parent('.select-wrapper');
+          var div = $('<div class="input-field"></div>');
+          var va = _this.element.attributes.getNamedItem('validate');
+          if (va) {
+            div.attr(va.name, va.label);
+          }
+          wrapper.wrap(div);
+          $('<label>' + _this.label + '</label>').insertAfter(wrapper);
+        }
+      });
       this.subscriptions.push(this.bindingEngine.propertyObserver(this.element, 'value').subscribe(this.handleChangeFromViewModel));
 
-      this.createMaterialSelect(false);
 
-      if (this.label) {
-        var wrapper = $(this.element).parent('.select-wrapper');
-        var div = $('<div class="input-field"></div>');
-        var va = this.element.attributes.getNamedItem('validate');
-        if (va) {
-          div.attr(va.name, va.label);
-        }
-        wrapper.wrap(div);
-        $('<label>' + this.label + '</label>').insertAfter(wrapper);
-      }
       $(this.element).on('change', this.handleChangeFromNativeSelect);
     };
 
@@ -22461,10 +22468,10 @@ define('aurelia-materialize-bridge/select/select',['exports', 'aurelia-templatin
     };
 
     MdSelect.prototype.refresh = function refresh() {
-      var _this = this;
+      var _this2 = this;
 
       this.taskQueue.queueTask(function () {
-        _this.createMaterialSelect(true);
+        _this2.createMaterialSelect(true);
       });
     };
 
@@ -22531,7 +22538,7 @@ define('aurelia-materialize-bridge/select/select',['exports', 'aurelia-templatin
     };
 
     MdSelect.prototype.observeVisibleDropdownContent = function observeVisibleDropdownContent(attach) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (attach) {
         if (!this.dropdownMutationObserver) {
@@ -22556,8 +22563,8 @@ define('aurelia-materialize-bridge/select/select',['exports', 'aurelia-templatin
               }
             }
             if (isHidden) {
-              _this2.dropdownMutationObserver.takeRecords();
-              _this2.handleBlur();
+              _this3.dropdownMutationObserver.takeRecords();
+              _this3.handleBlur();
             }
           });
         }
@@ -22574,14 +22581,14 @@ define('aurelia-materialize-bridge/select/select',['exports', 'aurelia-templatin
     };
 
     MdSelect.prototype.handleBlur = function handleBlur() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this._taskqueueRunning) return;
       this._taskqueueRunning = true;
       this.taskQueue.queueTask(function () {
-        _this3.log.debug('fire blur event');
-        (0, _events.fireEvent)(_this3.element, 'blur');
-        _this3._taskqueueRunning = false;
+        _this4.log.debug('fire blur event');
+        (0, _events.fireEvent)(_this4.element, 'blur');
+        _this4._taskqueueRunning = false;
       });
     };
 
