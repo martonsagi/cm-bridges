@@ -1,7 +1,7 @@
 ({
-  baseUrl: 'node_modules/materialize-css/js',
-  name: '../../../materialize-css',
-  out: 'node_modules/materialize-css/dist/js/materialize.amd.js',
+  baseUrl: '../node_modules/materialize-css/js',
+  name: '../../../tools/materialize-css',
+  out: '../node_modules/materialize-css/dist/js/materialize.amd.js',
   paths: {
     'jquery': '../../jquery/dist/jquery',
     'initial': 'initial',
