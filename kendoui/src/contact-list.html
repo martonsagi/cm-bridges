@@ -1,12 +1,20 @@
 <template>
+  <require from="aurelia-kendoui-bridge/panelbar/panelbar"></require>
+
   <div class="contact-list">
-    <ul class="list-group">
-      <li repeat.for="contact of contacts" class="list-group-item ${contact.id === $parent.selectedId ? 'active' : ''}">
-        <a route-href="route: contacts; params.bind: {id:contact.id}" click.delegate="$parent.select(contact)">
-          <h4 class="list-group-item-heading">${contact.firstName} ${contact.lastName}</h4>
-          <p class="list-group-item-text">${contact.email}</p>
-        </a>
-      </li>
-    </ul>
+    <ak-panel-bar>
+      <li class="k-state-active">
+        <span class="k-link k-state-selected">My Teammates</span>
+        <div repeat.for="contact of contacts" class="list-group-item ${contact.id === $parent.selectedId ? 'active' : ''}">
+          <a route-href="route: contacts; params.bind: {id:contact.id}" click.delegate="$parent.select(contact)">
+            <img src.bind="contact.image" alt="${contact.firstName} ${contact.lastName}">
+            <div class="details">
+              <h4 class="list-group-item-heading">${contact.firstName} ${contact.lastName}</h4>
+              <p class="list-group-item-text">${contact.email}</p>
+            </div>
+          </a>
+        </div>
+      </li>       
+    </ak-panel-bar>
   </div>
 </template>

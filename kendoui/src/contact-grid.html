@@ -1,0 +1,19 @@
+<template>
+  <require from="aurelia-kendoui-bridge/grid/grid"></require>
+  <require from="aurelia-kendoui-bridge/grid/col"></require>
+  <require from="aurelia-kendoui-bridge/common/template"></require>
+
+  <ak-grid k-data-source.bind="dataSource" k-editable="inline">
+    <ak-col k-title="Contact">
+      <ak-template>
+        <div class='customer-photo' css="background-image: url(${image});"></div>
+        <div class='customer-name'>${firstName} ${lastName}</div>
+      </ak-template>
+    </ak-col>
+    <ak-col k-title="First name" k-field="firstName"></ak-col>
+    <ak-col k-title="Last name" k-field="lastName"></ak-col>
+    <ak-col k-title="E-mail" k-field="email"></ak-col>
+    <ak-col k-title="Phone" k-field="phoneNumber"></ak-col>
+    <ak-col k-command.bind="['edit']" k-title="&nbsp;" width="250px"></ak-col>
+  </ak-grid>
+</template>

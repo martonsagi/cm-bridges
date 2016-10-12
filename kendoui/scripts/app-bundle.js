@@ -152,8 +152,9 @@ define('contact-list',['exports', 'aurelia-event-aggregator', './web-api', './me
         return _this.select(msg.contact);
       });
       ea.subscribe(_messages.ContactUpdated, function (msg) {
+        console.log(msg);
         var id = msg.contact.id;
-        var found = _this.contact(function (x) {
+        var found = _this.contacts.find(function (x) {
           return x.id === id;
         });
         Object.assign(found, msg.contact);
@@ -307,31 +308,35 @@ define('web-api',['exports'], function (exports) {
     firstName: 'John',
     lastName: 'Tolkien',
     email: 'tolkien@inklings.com',
-    phoneNumber: '867-5309'
+    phoneNumber: '867-5306',
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/andrew.jpg'
   }, {
     id: getId(),
     firstName: 'Clive',
     lastName: 'Lewis',
     email: 'lewis@inklings.com',
-    phoneNumber: '867-5309'
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/nancy.jpg'
   }, {
     id: getId(),
     firstName: 'Owen',
     lastName: 'Barfield',
     email: 'barfield@inklings.com',
-    phoneNumber: '867-5309'
+    phoneNumber: '867-5308',
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/robert.jpg'
   }, {
     id: getId(),
     firstName: 'Charles',
     lastName: 'Williams',
     email: 'williams@inklings.com',
-    phoneNumber: '867-5309'
+    phoneNumber: '867-5309',
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/andrew.jpg'
   }, {
     id: getId(),
     firstName: 'Roger',
     lastName: 'Green',
     email: 'green@inklings.com',
-    phoneNumber: '867-5309'
+    phoneNumber: '867-5310',
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/robert.jpg'
   }];
 
   var WebAPI = exports.WebAPI = function () {
@@ -352,7 +357,9 @@ define('web-api',['exports'], function (exports) {
               id: x.id,
               firstName: x.firstName,
               lastName: x.lastName,
-              email: x.email
+              email: x.email,
+              phoneNumber: x.phoneNumber,
+              image: x.image
             };
           });
           resolve(results);
@@ -464,9 +471,185 @@ define('resources/elements/loading-indicator',['exports', 'nprogress', 'aurelia-
     return _class;
   }());
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"aurelia-kendoui-bridge/tabstrip/tabstrip\"></require>\r\n  <require from=\"aurelia-kendoui-bridge/panelbar/panelbar\"></require>\r\n\r\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\r\n  <require from=\"./styles.css\"></require>\r\n  <require from=\"./contact-list\"></require>\r\n  <require from=\"./contact-detail\"></require>\r\n\r\n  <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"navbar-header\">\r\n      <a class=\"navbar-brand\" href=\"#\">\r\n        <i class=\"fa fa-user\"></i>\r\n        <span>Contacts - KendoUI edition</span>\r\n      </a>\r\n    </div>\r\n  </nav>\r\n\r\n  <loading-indicator loading.bind=\"router.isNavigating || api.isRequesting\"></loading-indicator>\r\n\r\n  <div class=\"container\">\r\n \r\n    <div id=\"tabstrip\" ak-tabstrip=\"k-animation.bind: { open: { effects: 'fadeIn' } }\">\r\n      <ul>\r\n        <li class=\"k-state-active\">\r\n          Original version  \r\n        </li>\r\n\r\n        <li>\r\n          KendoUI Core\r\n        </li>\r\n\r\n        <li>\r\n          KendoUI PRO\r\n        </li>\r\n      </ul> \r\n\r\n      <div>\r\n        Original version\r\n      </div>\r\n      \r\n      <div>\r\n        <div class=\"row\">\r\n          <ak-panel-bar class=\"col-md-3\" k-expand-mode=\"single\">\r\n            \r\n            <li class=\"k-state-active\">\r\n              <span class=\"k-link k-state-selected\">My Teammates</span>\r\n              <div style=\"padding: 10px;\">\r\n                  <div class=\"teamMate\">\r\n                      <img src=\"http://demos.telerik.com/kendo-ui/content/web/panelbar/andrew.jpg\" alt=\"Andrew Fuller\">\r\n                      <h2>Andrew Fuller</h2>\r\n                      <p>Team Lead</p>\r\n                  </div>\r\n                  <div class=\"teamMate\">\r\n                      <img src=\"http://demos.telerik.com/kendo-ui/content/web/panelbar/nancy.jpg\" alt=\"Nancy Leverling\">\r\n                      <h2>Nancy Leverling</h2>\r\n                      <p>Sales Associate</p>\r\n                  </div>\r\n                  <div class=\"teamMate\">\r\n                      <img src=\"http://demos.telerik.com/kendo-ui/content/web/panelbar/robert.jpg\" alt=\"Robert King\">\r\n                      <h2>Robert King</h2>\r\n                      <p>Business System Analyst</p>\r\n                  </div>\r\n              </div>\r\n            </li>            \r\n          </ak-panel-bar>\r\n\r\n          <router-view class=\"col-md-8\"></router-view>                 \r\n        </div>\r\n      </div>\r\n      \r\n      <div>\r\n        KendoUI PRO version\r\n      </div>\r\n\r\n    </div>  \r\n\r\n  </div>\r\n</template>"; });
-define('text!styles.css', ['module'], function(module) { module.exports = "body { padding-top: 70px; }\r\n\r\nsection {\r\n  margin: 0 20px;\r\n}\r\n\r\na:focus {\r\n  outline: none;\r\n}\r\n\r\n.navbar-nav li.loader {\r\n    margin: 12px 24px 0 6px;\r\n}\r\n\r\n.no-selection {\r\n  margin: 20px;\r\n}\r\n\r\n.contact-list {\r\n  overflow-y: auto;\r\n  border: 1px solid #ddd;\r\n  padding: 10px;\r\n}\r\n\r\n.panel {\r\n  margin: 20px;\r\n}\r\n\r\n.button-bar {\r\n  right: 0;\r\n  left: 0;\r\n  bottom: 0;\r\n  border-top: 1px solid #ddd;\r\n  background: white;\r\n}\r\n\r\n.button-bar > button {\r\n  float: right;\r\n  margin: 20px;\r\n}\r\n\r\nli.list-group-item {\r\n  list-style: none;\r\n}\r\n\r\nli.list-group-item > a {\r\n  text-decoration: none;\r\n}\r\n\r\nli.list-group-item.active > a {\r\n  color: white;\r\n}\r\n"; });
-define('text!contact-detail.html', ['module'], function(module) { module.exports = "<template>\r\n  <div class=\"panel panel-primary\">\r\n    <div class=\"panel-heading\">\r\n      <h3 class=\"panel-title\">Profile</h3>\r\n    </div>\r\n    <div class=\"panel-body\">\r\n      <form role=\"form\" class=\"form-horizontal\">\r\n        <div class=\"form-group\">\r\n          <label class=\"col-sm-2 control-label\">First Name</label>\r\n          <div class=\"col-sm-10\">\r\n            <input type=\"text\" placeholder=\"first name\" class=\"form-control\" value.bind=\"contact.firstName\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label class=\"col-sm-2 control-label\">Last Name</label>\r\n          <div class=\"col-sm-10\">\r\n            <input type=\"text\" placeholder=\"last name\" class=\"form-control\" value.bind=\"contact.lastName\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label class=\"col-sm-2 control-label\">Email</label>\r\n          <div class=\"col-sm-10\">\r\n            <input type=\"text\" placeholder=\"email\" class=\"form-control\" value.bind=\"contact.email\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label class=\"col-sm-2 control-label\">Phone Number</label>\r\n          <div class=\"col-sm-10\">\r\n            <input type=\"text\" placeholder=\"phone number\" class=\"form-control\" value.bind=\"contact.phoneNumber\">\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"button-bar\">\r\n    <button class=\"btn btn-success\" click.delegate=\"save()\" disabled.bind=\"!canSave\">Save</button>\r\n  </div>\r\n</template>"; });
-define('text!contact-list.html', ['module'], function(module) { module.exports = "<template>\r\n  <div class=\"contact-list\">\r\n    <ul class=\"list-group\">\r\n      <li repeat.for=\"contact of contacts\" class=\"list-group-item ${contact.id === $parent.selectedId ? 'active' : ''}\">\r\n        <a route-href=\"route: contacts; params.bind: {id:contact.id}\" click.delegate=\"$parent.select(contact)\">\r\n          <h4 class=\"list-group-item-heading\">${contact.firstName} ${contact.lastName}</h4>\r\n          <p class=\"list-group-item-text\">${contact.email}</p>\r\n        </a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</template>"; });
+define('contact-list.1',['exports', 'aurelia-event-aggregator', './web-api', './messages'], function (exports, _aureliaEventAggregator, _webApi, _messages) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ContactList = undefined;
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _class, _temp;
+
+  var ContactList = exports.ContactList = (_temp = _class = function () {
+    function ContactList(api, ea) {
+      var _this = this;
+
+      _classCallCheck(this, ContactList);
+
+      this.api = api;
+      this.ea = ea;
+      this.contacts = [];
+
+      ea.subscribe(_messages.ContactViewed, function (msg) {
+        return _this.select(msg.contact);
+      });
+      ea.subscribe(_messages.ContactUpdated, function (msg) {
+        var id = msg.contact.id;
+        var found = _this.contact(function (x) {
+          return x.id === id;
+        });
+        Object.assign(found, msg.contact);
+      });
+    }
+
+    ContactList.prototype.created = function created() {
+      var _this2 = this;
+
+      this.api.getContactList().then(function (contacts) {
+        return _this2.contacts = contacts;
+      });
+    };
+
+    ContactList.prototype.select = function select(contact) {
+      this.selectedId = contact.id;
+      return true;
+    };
+
+    return ContactList;
+  }(), _class.inject = [_webApi.WebAPI, _aureliaEventAggregator.EventAggregator], _temp);
+});
+define('contact-list-kendo',['exports', 'aurelia-event-aggregator', './web-api', './messages'], function (exports, _aureliaEventAggregator, _webApi, _messages) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ContactListKendo = undefined;
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _class, _temp;
+
+  var ContactListKendo = exports.ContactListKendo = (_temp = _class = function () {
+    function ContactListKendo(api, ea) {
+      var _this = this;
+
+      _classCallCheck(this, ContactListKendo);
+
+      this.api = api;
+      this.ea = ea;
+      this.contacts = [];
+
+      ea.subscribe(_messages.ContactViewed, function (msg) {
+        return _this.select(msg.contact);
+      });
+      ea.subscribe(_messages.ContactUpdated, function (msg) {
+        var id = msg.contact.id;
+        var found = _this.contact(function (x) {
+          return x.id === id;
+        });
+        Object.assign(found, msg.contact);
+      });
+    }
+
+    ContactListKendo.prototype.created = function created() {
+      var _this2 = this;
+
+      this.api.getContactList().then(function (contacts) {
+        return _this2.contacts = contacts;
+      });
+    };
+
+    ContactListKendo.prototype.select = function select(contact) {
+      this.selectedId = contact.id;
+      return true;
+    };
+
+    return ContactListKendo;
+  }(), _class.inject = [_webApi.WebAPI, _aureliaEventAggregator.EventAggregator], _temp);
+});
+define('contact-grid',['exports', 'aurelia-event-aggregator', './web-api', './messages'], function (exports, _aureliaEventAggregator, _webApi, _messages) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ContactGrid = undefined;
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _class, _temp;
+
+  var ContactGrid = exports.ContactGrid = (_temp = _class = function () {
+    function ContactGrid(api, ea) {
+      var _this = this;
+
+      _classCallCheck(this, ContactGrid);
+
+      this.dataSource = new kendo.data.DataSource({
+        transport: {
+          read: function read(options) {
+            _this.api.getContactList().then(function (contacts) {
+              _this.contacts = contacts;
+              options.success(_this.contacts);
+            });
+          },
+          update: function update(options) {
+            _this.api.saveContact(options.data).then(function () {
+              return _this.ea.publish(new _messages.ContactUpdated(options.data));
+            }).then(function () {
+              return options.success(options.data);
+            });
+          }
+        },
+        schema: {
+          model: {
+            id: 'id'
+          }
+        }
+      });
+
+      this.api = api;
+      this.ea = ea;
+      this.contacts = [];
+
+      ea.subscribe(_messages.ContactViewed, function (msg) {
+        return _this.select(msg.contact);
+      });
+      ea.subscribe(_messages.ContactUpdated, function (msg) {
+        return _this.dataSource.read();
+      });
+    }
+
+    ContactGrid.prototype.select = function select(contact) {
+      this.selectedId = contact.id;
+      return true;
+    };
+
+    return ContactGrid;
+  }(), _class.inject = [_webApi.WebAPI, _aureliaEventAggregator.EventAggregator], _temp);
+});
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"aurelia-kendoui-bridge/tabstrip/tabstrip\"></require>\r\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\r\n  <require from=\"./styles.css\"></require>\r\n  <require from=\"./contact-detail\"></require>\r\n  <require from=\"./contact-list\"></require>\r\n  <require from=\"./contact-grid\"></require>\r\n\r\n  <nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"navbar-header\">\r\n      <a class=\"navbar-brand\" href=\"#\">\r\n        <i class=\"fa fa-user\"></i>\r\n        <span>Contacts - KendoUI edition</span>\r\n      </a>\r\n    </div>\r\n  </nav>\r\n\r\n  <loading-indicator loading.bind=\"router.isNavigating || api.isRequesting\"></loading-indicator>\r\n\r\n  <div class=\"container\">\r\n \r\n    <div id=\"tabstrip\" ak-tabstrip=\"k-animation.bind: { open: { effects: 'fadeIn' } }\">\r\n      <ul>\r\n        <li class=\"k-state-active\">\r\n          KendoUI Core\r\n        </li>\r\n\r\n        <li>\r\n          KendoUI PRO\r\n        </li>\r\n      </ul> \r\n\r\n      <div>\r\n        <div id=\"core\" class=\"row\">\r\n          <contact-list class=\"col-md-4\"></contact-list>\r\n\r\n          <router-view class=\"col-md-8\"></router-view>                 \r\n        </div>\r\n      </div>\r\n      \r\n      <div>\r\n        <contact-grid></contact-grid>\r\n      </div>\r\n\r\n    </div>  \r\n\r\n  </div>\r\n</template>"; });
+define('text!styles.css', ['module'], function(module) { module.exports = "body { padding-top: 70px; }\r\n\r\nsection {\r\n  margin: 0 20px;\r\n}\r\n\r\na:focus {\r\n  outline: none;\r\n}\r\n\r\n.navbar-nav li.loader {\r\n    margin: 12px 24px 0 6px;\r\n}\r\n\r\n.no-selection {\r\n  margin: 20px;\r\n}\r\n\r\n.contact-list {\r\n  overflow-y: auto;\r\n  border: 1px solid #ddd;\r\n  padding: 10px;\r\n}\r\n\r\n.panel {\r\n  margin: 20px;\r\n}\r\n\r\n.button-bar {\r\n  right: 0;\r\n  left: 0;\r\n  bottom: 0;\r\n  border-top: 1px solid #ddd;\r\n  background: white;\r\n}\r\n\r\n.button-bar > button {\r\n  float: right;\r\n  margin: 20px;\r\n}\r\n\r\n#core.row {\r\n  margin-left: 0;\r\n  margin-right: 0;\r\n}\r\n\r\n.list-group-item {\r\n  list-style: none;\r\n}\r\n\r\n.list-group-item > a {\r\n  text-decoration: none;\r\n}\r\n\r\n.list-group-item.active h4, \r\n.list-group-item.active p {\r\n  color: white !important;\r\n}\r\n\r\n.contact-list img {\r\n    display: inline-block;\r\n    margin: 5px 15px 5px 5px;\r\n    border: 1px solid #ccc;\r\n    border-radius: 50%;\r\n}\r\n.list-group-item-heading {\r\n  margin-top: 15px;\r\n}\r\n.details {\r\n    display: inline-block;\r\n    vertical-align: top;\r\n}\r\n\r\n\r\n\r\n/* set a border-box model only to elements that need it */\r\n.form-control,\r\n.container,\r\n.container-fluid,\r\n.row,\r\n.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1,\r\n.col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,\r\n.col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,\r\n.col-xs-4, .col-sm-4, .col-md-4, .col-lg-4,\r\n.col-xs-5, .col-sm-5, .col-md-5, .col-lg-5,\r\n.col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,\r\n.col-xs-7, .col-sm-7, .col-md-7, .col-lg-7,\r\n.col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,\r\n.col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,\r\n.col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,\r\n.col-xs-11, .col-sm-11, .col-md-11, .col-lg-11,\r\n.col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.customer-photo {\r\n    display: inline-block;\r\n    width: 32px;\r\n    height: 32px;\r\n    border-radius: 50%;\r\n    background-size: 32px 35px;\r\n    background-position: center center;\r\n    vertical-align: middle;\r\n    line-height: 32px;\r\n    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);\r\n    margin-left: 5px;\r\n}\r\n\r\n.customer-name {\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n    line-height: 32px;\r\n    padding-left: 3px;\r\n}"; });
+define('text!contact-detail.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"aurelia-kendoui-bridge/maskedtextbox/maskedtextbox\"></require>\r\n\r\n  <div class=\"panel panel-primary\">\r\n    <div class=\"panel-heading\">\r\n      <h3 class=\"panel-title\">Profile</h3>\r\n    </div>\r\n    <div class=\"panel-body\">\r\n      <form role=\"form\" class=\"form-horizontal\">\r\n        <div class=\"form-group\">\r\n          <label class=\"col-sm-2 control-label\">First Name</label>\r\n          <div class=\"col-sm-10\">\r\n            <input type=\"text\" placeholder=\"first name\" class=\"form-control\" value.bind=\"contact.firstName\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label class=\"col-sm-2 control-label\">Last Name</label>\r\n          <div class=\"col-sm-10\">\r\n            <input type=\"text\" placeholder=\"last name\" class=\"form-control\" value.bind=\"contact.lastName\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label class=\"col-sm-2 control-label\">Email</label>\r\n          <div class=\"col-sm-10\">\r\n            <input type=\"text\" placeholder=\"email\" class=\"form-control\" value.bind=\"contact.email\">\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label class=\"col-sm-2 control-label\">Phone Number</label>\r\n          <div class=\"col-sm-10\">\r\n            <input type=\"text\" placeholder=\"phone number\" class=\"form-control\" ak-maskedtextbox=\"k-value.bind: contact.phoneNumber; k-mask: 000-0000\">\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"button-bar\">\r\n    <button class=\"btn btn-success\" click.delegate=\"save()\" disabled.bind=\"!canSave\">Save</button>\r\n  </div>\r\n</template>"; });
+define('text!contact-list.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"aurelia-kendoui-bridge/panelbar/panelbar\"></require>\r\n\r\n  <div class=\"contact-list\">\r\n    <ak-panel-bar>\r\n      <li class=\"k-state-active\">\r\n        <span class=\"k-link k-state-selected\">My Teammates</span>\r\n        <div repeat.for=\"contact of contacts\" class=\"list-group-item ${contact.id === $parent.selectedId ? 'active' : ''}\">\r\n          <a route-href=\"route: contacts; params.bind: {id:contact.id}\" click.delegate=\"$parent.select(contact)\">\r\n            <img src.bind=\"contact.image\" alt=\"${contact.firstName} ${contact.lastName}\">\r\n            <div class=\"details\">\r\n              <h4 class=\"list-group-item-heading\">${contact.firstName} ${contact.lastName}</h4>\r\n              <p class=\"list-group-item-text\">${contact.email}</p>\r\n            </div>\r\n          </a>\r\n        </div>\r\n      </li>       \r\n    </ak-panel-bar>\r\n  </div>\r\n</template>"; });
 define('text!no-selection.html', ['module'], function(module) { module.exports = "<template>\r\n  <div class=\"no-selection text-center\">\r\n    <h2>${message}</h2>\r\n  </div>\r\n</template>"; });
+define('text!contact-list.1.html', ['module'], function(module) { module.exports = "<template>\r\n  <div class=\"contact-list\">\r\n    <ul class=\"list-group\">\r\n      <li repeat.for=\"contact of contacts\" class=\"list-group-item ${contact.id === $parent.selectedId ? 'active' : ''}\">\r\n        <a route-href=\"route: contacts; params.bind: {id:contact.id}\" click.delegate=\"$parent.select(contact)\">\r\n          <h4 class=\"list-group-item-heading\">${contact.firstName} ${contact.lastName}</h4>\r\n          <p class=\"list-group-item-text\">${contact.email}</p>\r\n        </a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</template>"; });
+define('text!contact-list-kendo.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"aurelia-kendoui-bridge/panelbar/panelbar\"></require>\r\n\r\n  <div class=\"contact-list\">\r\n    <ak-panel-bar>\r\n      <li class=\"k-state-active\">\r\n        <span class=\"k-link k-state-selected\">My Teammates</span>\r\n        <div repeat.for=\"contact of contacts\" class=\"teamMate list-group-item ${contact.id === $parent.selectedId ? 'active' : ''}\">\r\n          <a route-href=\"route: contacts; params.bind: {id:contact.id}\" click.delegate=\"$parent.select(contact)\">\r\n            <img src.bind=\"contact.image\" alt=\"${contact.firstName} ${contact.lastName}\">\r\n            <div class=\"details\">\r\n              <h4 class=\"list-group-item-heading\">${contact.firstName} ${contact.lastName}</h4>\r\n              <p class=\"list-group-item-text\">${contact.email}</p>\r\n            </div>\r\n          </a>\r\n        </div>\r\n      </li>       \r\n    </ak-panel-bar>\r\n  </div>\r\n</template>"; });
+define('text!contact-grid.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"aurelia-kendoui-bridge/grid/grid\"></require>\r\n  <require from=\"aurelia-kendoui-bridge/grid/col\"></require>\r\n  <require from=\"aurelia-kendoui-bridge/common/template\"></require>\r\n\r\n  <ak-grid k-data-source.bind=\"dataSource\" k-editable=\"inline\">\r\n    <ak-col k-title=\"Contact\">\r\n      <ak-template>\r\n        <div class='customer-photo' css=\"background-image: url(${image});\"></div>\r\n        <div class='customer-name'>${firstName} ${lastName}</div>\r\n      </ak-template>\r\n    </ak-col>\r\n    <ak-col k-title=\"First name\" k-field=\"firstName\"></ak-col>\r\n    <ak-col k-title=\"Last name\" k-field=\"lastName\"></ak-col>\r\n    <ak-col k-title=\"E-mail\" k-field=\"email\"></ak-col>\r\n    <ak-col k-title=\"Phone\" k-field=\"phoneNumber\"></ak-col>\r\n    <ak-col k-command.bind=\"['edit']\" k-title=\"&nbsp;\" width=\"250px\"></ak-col>\r\n  </ak-grid>\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map
