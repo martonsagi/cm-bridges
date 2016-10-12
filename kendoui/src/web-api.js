@@ -12,14 +12,14 @@ let contacts = [
     lastName:'Tolkien',
     email:'tolkien@inklings.com',
     phoneNumber:'867-5306',
-    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/andrew.jpg'
+    image: 'http://demos.telerik.com/kendo-ui/content/web/Customers/anton.jpg'
   },
   {
     id:getId(),
     firstName:'Clive',
     lastName:'Lewis',
     email:'lewis@inklings.com',
-    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/nancy.jpg'
+    image: 'http://demos.telerik.com/kendo-ui/content/web/Customers/arout.jpg'
   },
   {
     id:getId(),
@@ -27,7 +27,7 @@ let contacts = [
     lastName:'Barfield',
     email:'barfield@inklings.com',
     phoneNumber:'867-5308',
-    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/robert.jpg'
+    image: 'http://demos.telerik.com/kendo-ui/content/web/Customers/blonp.jpg'
   },
   {
     id:getId(),
@@ -35,7 +35,7 @@ let contacts = [
     lastName:'Williams',
     email:'williams@inklings.com',
     phoneNumber:'867-5309',
-    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/andrew.jpg'
+    image: 'http://demos.telerik.com/kendo-ui/content/web/Customers/bolid.jpg'
   },
   {
     id:getId(),
@@ -43,7 +43,7 @@ let contacts = [
     lastName:'Green',
     email:'green@inklings.com',
     phoneNumber:'867-5310',
-    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/robert.jpg'
+    image: 'http://demos.telerik.com/kendo-ui/content/web/Customers/bonap.jpg'
   }
 ];
 
