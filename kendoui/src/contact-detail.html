@@ -1,4 +1,6 @@
 <template>
+  <require from="aurelia-kendoui-bridge/maskedtextbox/maskedtextbox"></require>
+
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3 class="panel-title">Profile</h3>
@@ -29,7 +31,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Phone Number</label>
           <div class="col-sm-10">
-            <input type="text" placeholder="phone number" class="form-control" value.bind="contact.phoneNumber">
+            <input type="text" placeholder="phone number" class="form-control" ak-maskedtextbox="k-value.bind: contact.phoneNumber; k-mask: 000-0000">
           </div>
         </div>
       </form>

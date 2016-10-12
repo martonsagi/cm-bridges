@@ -11,35 +11,39 @@ let contacts = [
     firstName:'John',
     lastName:'Tolkien',
     email:'tolkien@inklings.com',
-    phoneNumber:'867-5309'
+    phoneNumber:'867-5306',
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/andrew.jpg'
   },
   {
     id:getId(),
     firstName:'Clive',
     lastName:'Lewis',
     email:'lewis@inklings.com',
-    phoneNumber:'867-5309'
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/nancy.jpg'
   },
   {
     id:getId(),
     firstName:'Owen',
     lastName:'Barfield',
     email:'barfield@inklings.com',
-    phoneNumber:'867-5309'
+    phoneNumber:'867-5308',
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/robert.jpg'
   },
   {
     id:getId(),
     firstName:'Charles',
     lastName:'Williams',
     email:'williams@inklings.com',
-    phoneNumber:'867-5309'
+    phoneNumber:'867-5309',
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/andrew.jpg'
   },
   {
     id:getId(),
     firstName:'Roger',
     lastName:'Green',
     email:'green@inklings.com',
-    phoneNumber:'867-5309'
+    phoneNumber:'867-5310',
+    image: 'http://demos.telerik.com/kendo-ui/content/web/panelbar/robert.jpg'
   }
 ];
 
@@ -54,7 +58,9 @@ export class WebAPI {
           id:x.id,
           firstName:x.firstName,
           lastName:x.lastName,
-          email:x.email
+          email:x.email,
+          phoneNumber:x.phoneNumber,
+          image:x.image
         }});
         resolve(results);
         this.isRequesting = false;

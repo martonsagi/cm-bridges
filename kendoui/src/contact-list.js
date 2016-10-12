@@ -2,7 +2,6 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import {WebAPI} from './web-api';
 import {ContactUpdated, ContactViewed} from './messages';
 
-
 export class ContactList {
   static inject = [WebAPI, EventAggregator];
 
@@ -14,8 +13,9 @@ export class ContactList {
 
     ea.subscribe(ContactViewed, msg => this.select(msg.contact));
     ea.subscribe(ContactUpdated, msg => {
+      console.log(msg);
       let id = msg.contact.id;
-      let found = this.contact(x => x.id === id);
+      let found = this.contacts.find(x => x.id === id);
       Object.assign(found, msg.contact);
     });
   }
