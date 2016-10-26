@@ -1,0 +1,48 @@
+<template>
+  <require from="aurelia-kendoui-bridge/tabstrip/tabstrip"></require>
+  <require from="bootstrap/css/bootstrap.css"></require>
+  <require from="./styles.css"></require>
+  <require from="./contact-detail"></require>
+  <require from="./contact-list"></require>
+  <require from="./contact-grid"></require>
+
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <i class="fa fa-user"></i>
+        <span>Contacts - KendoUI edition</span>
+      </a>
+    </div>
+  </nav>
+
+  <loading-indicator loading.bind="router.isNavigating || api.isRequesting"></loading-indicator>
+
+  <div class="container">
+ 
+    <div id="tabstrip" ak-tabstrip="k-animation.bind: { open: { effects: 'fadeIn' } }">
+      <ul>
+        <li class="k-state-active">
+          KendoUI Core
+        </li>
+
+        <li>
+          KendoUI PRO
+        </li>
+      </ul> 
+
+      <div>
+        <div id="core" class="row">
+          <contact-list class="col-md-4"></contact-list>
+
+          <router-view class="col-md-8"></router-view>                 
+        </div>
+      </div>
+      
+      <div>
+        <contact-grid></contact-grid>
+      </div>
+
+    </div>  
+
+  </div>
+</template>
